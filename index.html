@@ -395,6 +395,33 @@
     <!-- Load Google Maps API -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!--  Google Script  -->
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        fetch("https://script.google.com/macros/s/AKfycbwH03XcQr_hi-s6E1z7AnDPKKek8Hp_L9aInknvj6HSZfyLRpL_yVvUsgE2i7lQ0Cr0/exec", {
+          // https://script.google.com/macros/s/AKfycbwLsslVqrc4QAX-vP8vDaoME4cIZnx5EpjT7-LyuV8RDP0nsP1sbsAcWqigiHtiqUM/exec
+          method: "POST",
+          body: JSON.stringify({
+            nama: document.querySelector("[name='nama']").value,
+            email: document.querySelector("[name='email']").value,
+            telepon: document.querySelector("[name='telepon']").value,
+            pesan: document.querySelector("[name='pesan']").value,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.text())
+          .then((data) => {
+            alert("Berhasil: " + data);
+          })
+          .catch((err) => {
+            alert("Gagal mengirim: " + err.message);
+          });
+      });
+    </script>
 
     <!-- <script>
   // Buat peta dengan koordinat Yosorejo
